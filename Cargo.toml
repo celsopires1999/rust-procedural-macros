@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "printvars-client",
+    "printvars-core",
+    "printvars-derive"
+]
