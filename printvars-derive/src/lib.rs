@@ -4,5 +4,5 @@ use proc_macro::TokenStream;
 
 #[proc_macro_attribute]
 pub fn trace_vars(args: TokenStream, input: TokenStream) -> TokenStream {
-    trace_vars_core(args, input)
+    trace_vars_core(args.into(), input.into()).into()
 }

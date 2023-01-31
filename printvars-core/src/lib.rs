@@ -1,21 +1,29 @@
 extern crate proc_macro;
 use std::collections::HashSet;
 
-use proc_macro::TokenStream;
+use proc_macro2::TokenStream;
 use quote::{quote, ToTokens};
 use syn::{
     fold::{self, Fold},
     parse::{Parse, ParseStream},
-    parse_macro_input, parse_quote,
+    parse2, parse_quote,
     punctuated::Punctuated,
     Expr, Ident, ItemFn, Local, Pat, Result, Stmt, Token,
 };
 
 pub fn trace_vars_core(args: TokenStream, input: TokenStream) -> TokenStream {
     // parse the input
-    let input = parse_macro_input!(input as ItemFn);
+    // let input = parse_macro_input!(input as ItemFn);
+    let input = match parse2::<ItemFn>(input) {
+        Ok(syntax_tree) => syntax_tree,
+        Err(error) => return error.to_compile_error(),
+    };
     // parse the arguments
-    let mut args = parse_macro_input!(args as Args);
+    // let mut args = parse_macro_input!(args as Args);
+    let mut args = match parse2::<Args>(args) {
+        Ok(syntax_tree) => syntax_tree,
+        Err(error) => return error.to_compile_error(),
+    };
     // create the output
     let output = args.fold_item_fn(input);
     // return the TokenStream

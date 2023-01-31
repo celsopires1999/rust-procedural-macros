@@ -3,6 +3,13 @@
 version = 3
 
 [[package]]
+name = "printvars"
+version = "0.1.0"
+dependencies = [
+ "printvars-derive",
+]
+
+[[package]]
 name = "printvars-client"
 version = "0.1.0"
 dependencies = [
@@ -13,6 +20,7 @@ dependencies = [
 name = "printvars-core"
 version = "0.1.0"
 dependencies = [
+ "proc-macro2",
  "quote",
  "syn",
 ]
@@ -22,8 +30,7 @@ name = "printvars-derive"
 version = "0.1.0"
 dependencies = [
  "printvars-core",
- "quote",
- "syn",
+ "proc-macro2",
 ]
 
 [[package]]
