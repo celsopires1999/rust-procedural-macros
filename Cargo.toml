@@ -5,13 +5,15 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-
 [workspace]
 members = [
     "printvars-client",
     "printvars-core",
     "printvars-derive"
 ]
+
+[dev-dependencies]
+trybuild = "1.0"
 
 [dependencies]
 printvars-derive = { path = "printvars-derive" }

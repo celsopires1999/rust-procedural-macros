@@ -10,4 +10,5 @@ proc-macro = true
 
 [dependencies]
 printvars-core = { path = "../printvars-core" }
+proc-macro-error = "1.0.4"
 proc-macro2 = "1.0"

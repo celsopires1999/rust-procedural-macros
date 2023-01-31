@@ -1,1 +1,1 @@
-pub use printvars_derive::*;
+pub use printvars_derive::trace_vars;

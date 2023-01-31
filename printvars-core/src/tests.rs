@@ -2,18 +2,57 @@
 use super::*;
 
 #[test]
-fn test_first() {
+fn it_should_trace_var_a() {
     let args = quote! {a};
 
-    let input = quote! {
+    let before = quote! {
         fn add(mut a: u32) -> u32 {
             a = a + 1;
             a
         }
     };
 
-    let output = trace_vars_core(args, input);
-    let _expected = "fn add (mut a : u32) -> u32 { { a = a + 1 ; println ! (concat ! (stringify ! (a) , \" = {:?}\") , a) ; } ; a }";
-    // assert_eq!(expected, output.to_string());
-    dbg!(output.to_string());
+    let expected = quote! {
+        fn add(mut a: u32) -> u32 {
+            {
+                a = a + 1;
+                println!(concat!(stringify!(a), " = {:?}"), a);
+            };
+            a
+        }
+
+    };
+
+    let after = trace_vars_core(args, before);
+    assert_tokens_eq(&expected, &after);
+
+    fn add(mut a: u32) -> u32 {
+        {
+            a = a + 1;
+            println!(concat!(stringify!(a), " = {:?}"), a);
+        };
+        a
+    }
+
+    assert_eq!(add(1), 2);
 }
+
+// region:       Help Functions
+fn assert_tokens_eq(expected: &TokenStream, actual: &TokenStream) {
+    let expected = expected.to_string();
+    let actual = actual.to_string();
+
+    if expected != actual {
+        println!(
+            "{}",
+            colored_diff::PrettyDifference {
+                expected: &expected,
+                actual: &actual,
+            }
+        );
+        println!("expected: {}", &expected);
+        println!("actual  : {}", &actual);
+        panic!("expected != actual");
+    }
+}
+// endregion:    Help Functions

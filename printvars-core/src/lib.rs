@@ -2,6 +2,7 @@ extern crate proc_macro;
 use std::collections::HashSet;
 
 use proc_macro2::TokenStream;
+// use proc_macro_error::abort;
 use quote::{quote, ToTokens};
 use syn::{
     fold::{self, Fold},
@@ -12,7 +13,6 @@ use syn::{
 };
 
 pub fn trace_vars_core(args: TokenStream, input: TokenStream) -> TokenStream {
-    // parse the input
     // let input = parse_macro_input!(input as ItemFn);
     let input = match parse2::<ItemFn>(input) {
         Ok(syntax_tree) => syntax_tree,
