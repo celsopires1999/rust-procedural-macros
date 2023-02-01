@@ -7,7 +7,6 @@ edition = "2021"
 
 [workspace]
 members = [
-    "printvars-client",
     "printvars-core",
     "printvars-derive"
 ]
