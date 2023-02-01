@@ -10,3 +10,9 @@ fn trace_a() {
 
     assert!(add(2) == 4);
 }
+
+#[test]
+fn ui() {
+    let t = trybuild::TestCases::new();
+    t.compile_fail("tests/ui/*.rs");
+}

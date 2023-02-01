@@ -1,0 +1,7 @@
+error: printvars requires arguments.
+ --> tests/ui/printvars_no_vars.rs:3:1
+  |
+3 | #[trace_vars()]
+  | ^^^^^^^^^^^^^^^
+  |
+  = note: this error originates in the attribute macro `trace_vars` (in Nightly builds, run with -Z macro-backtrace for more info)
