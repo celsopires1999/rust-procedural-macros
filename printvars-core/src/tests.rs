@@ -37,6 +37,14 @@ fn it_should_trace_var_a() {
     assert_eq!(add(1), 2);
 }
 
+#[test]
+#[should_panic(
+    expected = "proc-macro-error API cannot be used outside of `entry_point` invocation, perhaps you forgot to annotate your #[proc_macro] function with `#[proc_macro_error]"
+)]
+fn it_should_panic() {
+    trace_vars_core(quote!(), quote!());
+}
+
 // region:       Help Functions
 fn assert_tokens_eq(expected: &TokenStream, actual: &TokenStream) {
     let expected = expected.to_string();
